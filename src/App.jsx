@@ -1,10 +1,11 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import React from "react";
 import Navbar from "./components/Navbar";
+import Home from "./pages/Home";
 
-function Home() {
-	return <h1>Home Page</h1>;
-}
+// function Home() {
+// 	return <h1>Home Page</h1>;
+// }
 
 function Menu() {
 	return <h1>Menu Page</h1>;

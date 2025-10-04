@@ -6,7 +6,7 @@ const Navbar = () => {
 		<nav className="flex justify-between items-center mx-6 my-4 px-6 py-3 bg-gray-50 shadow-md rounded-lg">
 			{/* Logo */}
 			<div>
-				<Link className="flex items-center gap-3">
+				<Link className="flex items-center ">
 					<img
 						src="https://i.pinimg.com/736x/7b/5f/d9/7b5fd9f074cf1ec3709271398dcf653a.jpg"
 						alt="Fashion"
@@ -46,7 +46,7 @@ const Navbar = () => {
 
 			{/* Button */}
 			<div>
-				<button className="flex items-center gap-2 bg-blue-600 text-white px-5 py-2 rounded-lg font-semibold hover:bg-blue-700 transition">
+				<button className="flex items-center gap-2 bg-blue-500 text-white px-5 py-2 rounded-lg font-semibold hover:bg-blue-700 transition cursor-pointer">
 					Shop Now
 					<ArrowRight size={18} />
 				</button>
