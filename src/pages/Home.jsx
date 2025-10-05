@@ -3,31 +3,29 @@ import { Star } from "lucide-react";
 import jacketImage from "../assets/images/leather-jacket.jpg";
 import Categories from "../components/Categories";
 import FeaturedProducts from "../components/FeaturedProducts";
+import TestimonialCard from "../components/TestimonialCard";
+import SpecialOffers from "../components/SpecialOffers";
+import Footer from "../components/Footer";
 
 const Home = () => {
 	return (
 		<>
 			<section className="bg-gradient-to-br from-blue-50 to-cyan-50 min-h-screen flex items-center px-4 sm:px-8 md:px-12 lg:px-20 py-12">
 				<div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-20 items-center">
-
 					<div className="space-y-6 text-center md:text-left">
-
 						<div className="inline-flex items-center gap-2 bg-blue-600 text-white px-3 py-1 rounded-md text-sm font-medium">
 							<Star size={16} color="currentColor" />
 							premium collection
 						</div>
 
-
 						<h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 leading-tight">
 							Discover Your <br className="hidden sm:block" /> Perfect Style
 						</h1>
 
-	
 						<p className="text-gray-600 text-base sm:text-lg max-w-md mx-auto md:mx-0">
 							Luxurious wool coat perfect for any season. Crafted with premium
 							materials for ultimate comfort and style.
 						</p>
-
 
 						<div className="bg-white shadow-md rounded-xl p-6 border space-y-4 max-w-sm mx-auto md:mx-0">
 							<div className="flex items-center justify-between">
@@ -46,7 +44,6 @@ const Home = () => {
 								<span className="line-through text-gray-400">$299.99</span>
 							</div>
 
-
 							<div className="flex flex-col sm:flex-row gap-3">
 								<button className="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-lg font-medium flex items-center justify-center gap-2">
 									Shop Now →
@@ -56,7 +53,6 @@ const Home = () => {
 								</button>
 							</div>
 						</div>
-
 
 						<div className="flex flex-wrap justify-center md:justify-start gap-6 text-sm font-medium pt-2">
 							<span className="flex items-center gap-2 text-green-600">
@@ -86,6 +82,9 @@ const Home = () => {
 
 			<Categories />
 			<FeaturedProducts />
+			<TestimonialCard />
+			<SpecialOffers />
+			<Footer />
 		</>
 	);
 };
