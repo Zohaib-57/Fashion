@@ -2,14 +2,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import React from "react";
 import Navbar from "./components/Navbar";
 import Home from "./pages/Home";
-
-// function Home() {
-// 	return <h1>Home Page</h1>;
-// }
-
-function Menu() {
-	return <h1>Menu Page</h1>;
-}
+import Menu from "./pages/Menu";
 
 function Contact() {
 	return <h1>Contact Page</h1>;
@@ -21,9 +14,7 @@ function Reviews() {
 function App() {
 	return (
 		<BrowserRouter>
-			{/* Navigation */}
 			<Navbar />
-			{/* Routes */}
 			<Routes>
 				<Route path="/" element={<Home />} />
 				<Route path="/menu" element={<Menu />} />
