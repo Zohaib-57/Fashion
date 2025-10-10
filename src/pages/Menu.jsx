@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from "react";
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
+import { Filter, X, Grid, List, ChevronDown } from "lucide-react";
 
 const MenuPage = () => {
 	const [activeCategory, setActiveCategory] = useState("all");
@@ -14,6 +15,8 @@ const MenuPage = () => {
 		color: "",
 		sort: "featured",
 	});
+	const [isFilterOpen, setIsFilterOpen] = useState(false);
+	const [viewMode, setViewMode] = useState("grid");
 
 	const categories = [
 		{ id: "all", name: "All Products", count: 156, icon: "🛍️" },
@@ -194,7 +197,7 @@ const MenuPage = () => {
 		// Show notification
 		const notification = document.createElement("div");
 		notification.className =
-			"fixed top-4 right-4 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg z-50 transform translate-x-full transition-transform duration-300";
+			"fixed top-4 right-4 bg-green-500 text-white px-4 sm:px-6 py-2 sm:py-3 rounded-lg shadow-lg z-50 transform translate-x-full transition-transform duration-300 text-sm sm:text-base";
 		notification.textContent = "Added to cart!";
 		document.body.appendChild(notification);
 
@@ -253,14 +256,14 @@ const MenuPage = () => {
 
 		return (
 			<div
-				className="bg-white rounded-xl shadow-sm overflow-hidden group hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2"
+				className="bg-white rounded-xl shadow-sm overflow-hidden group hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 lg:hover:-translate-y-2"
 				onMouseEnter={() => setIsHovered(true)}
 				onMouseLeave={() => setIsHovered(false)}
 			>
-				<div className="relative bg-gray-100 h-80 overflow-hidden">
+				<div className="relative bg-gray-100 h-60 sm:h-72 md:h-80 overflow-hidden">
 					{!imageLoaded && (
 						<div className="absolute inset-0 bg-gradient-to-br from-gray-200 to-gray-300 animate-pulse flex items-center justify-center">
-							<div className="w-12 h-12 border-4 border-gray-300 border-t-blue-500 rounded-full animate-spin"></div>
+							<div className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 border-4 border-gray-300 border-t-blue-500 rounded-full animate-spin"></div>
 						</div>
 					)}
 					<img
@@ -272,21 +275,21 @@ const MenuPage = () => {
 						onLoad={() => setImageLoaded(true)}
 					/>
 
-					<div className="absolute top-3 right-3 flex flex-col gap-2">
+					<div className="absolute top-2 right-2 sm:top-3 sm:right-3 flex flex-col gap-1 sm:gap-2">
 						{product.onSale && (
-							<span className="bg-red-500 text-white px-3 py-1 text-sm font-semibold rounded-full shadow-lg transform group-hover:scale-110 transition-transform">
+							<span className="bg-red-500 text-white px-2 py-1 text-xs sm:text-sm font-semibold rounded-full shadow-lg transform group-hover:scale-110 transition-transform">
 								-{product.discount}%
 							</span>
 						)}
 						{product.isNew && (
-							<span className="bg-green-500 text-white px-3 py-1 text-sm font-semibold rounded-full shadow-lg transform group-hover:scale-110 transition-transform">
+							<span className="bg-green-500 text-white px-2 py-1 text-xs sm:text-sm font-semibold rounded-full shadow-lg transform group-hover:scale-110 transition-transform">
 								NEW
 							</span>
 						)}
 					</div>
 
 					<div
-						className={`absolute bottom-3 left-3 right-3 transition-all duration-300 ${
+						className={`absolute bottom-2 left-2 right-2 sm:bottom-3 sm:left-3 sm:right-3 transition-all duration-300 ${
 							isHovered
 								? "opacity-100 translate-y-0"
 								: "opacity-0 translate-y-4"
@@ -294,34 +297,34 @@ const MenuPage = () => {
 					>
 						<button
 							onClick={() => addToCart(product)}
-							className="w-full bg-black text-white py-3 font-semibold rounded-lg hover:bg-gray-800 transition-colors shadow-lg transform hover:scale-105 active:scale-95"
+							className="w-full bg-black text-white py-2 sm:py-3 text-sm sm:text-base font-semibold rounded-lg hover:bg-gray-800 transition-colors shadow-lg transform hover:scale-105 active:scale-95"
 						>
 							Add to Cart
 						</button>
 					</div>
 				</div>
 
-				<div className="p-6">
-					<h3 className="font-semibold text-gray-900 text-lg mb-2 heading group-hover:text-blue-600 transition-colors">
+				<div className="p-4 sm:p-6">
+					<h3 className="font-semibold text-gray-900 text-base sm:text-lg mb-2 heading group-hover:text-blue-600 transition-colors line-clamp-1">
 						{product.name}
 					</h3>
-					<p className="text-gray-600 text-sm mb-3 line-clamp-2">
+					<p className="text-gray-600 text-xs sm:text-sm mb-3 line-clamp-2">
 						{product.description}
 					</p>
 
 					<div className="flex items-center justify-between mb-3">
 						<div className="flex items-center space-x-2">
-							<span className="text-gray-900 font-bold text-xl">
+							<span className="text-gray-900 font-bold text-lg sm:text-xl">
 								${product.price}
 							</span>
 							{product.originalPrice && (
-								<span className="text-gray-400 text-sm line-through">
+								<span className="text-gray-400 text-xs sm:text-sm line-through">
 									${product.originalPrice}
 								</span>
 							)}
 						</div>
-						<div className="flex items-center text-sm text-gray-600">
-							<div className="flex text-yellow-400 mr-1">
+						<div className="flex items-center text-xs sm:text-sm text-gray-600">
+							<div className="flex text-yellow-400 mr-1 text-sm">
 								{"★".repeat(Math.floor(product.rating))}
 								{"☆".repeat(5 - Math.floor(product.rating))}
 							</div>
@@ -332,12 +335,15 @@ const MenuPage = () => {
 					<div className="flex items-center justify-between text-xs text-gray-500">
 						<div className="flex space-x-1">
 							{product.sizes.slice(0, 3).map((size) => (
-								<span key={size} className="px-2 py-1 bg-gray-100 rounded">
+								<span
+									key={size}
+									className="px-1.5 py-0.5 sm:px-2 sm:py-1 bg-gray-100 rounded text-xs"
+								>
 									{size}
 								</span>
 							))}
 							{product.sizes.length > 3 && (
-								<span className="px-2 py-1 bg-gray-100 rounded">
+								<span className="px-1.5 py-0.5 sm:px-2 sm:py-1 bg-gray-100 rounded text-xs">
 									+{product.sizes.length - 3}
 								</span>
 							)}
@@ -346,7 +352,7 @@ const MenuPage = () => {
 							{product.colors.slice(0, 2).map((color) => (
 								<div
 									key={color}
-									className="w-3 h-3 rounded-full border"
+									className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full border"
 									style={{
 										backgroundColor:
 											color.toLowerCase() === "white"
@@ -374,20 +380,197 @@ const MenuPage = () => {
 
 	return (
 		<div className="min-h-screen bg-gradient-to-br from-gray-50 to-blue-50">
-			<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-				<div className="text-center mb-12">
-					<h1 className="text-5xl font-light text-gray-900 mb-4 heading">
+			{/* Mobile Filter Overlay */}
+			{isFilterOpen && (
+				<div className="fixed inset-0 bg-black bg-opacity-50 z-40 lg:hidden">
+					<div className="fixed inset-y-0 left-0 w-80 max-w-full bg-white overflow-y-auto z-50 transform transition-transform">
+						<div className="p-4 sm:p-6">
+							<div className="flex justify-between items-center mb-6">
+								<h3 className="text-xl font-semibold text-gray-900 heading">
+									Filters
+								</h3>
+								<button
+									onClick={() => setIsFilterOpen(false)}
+									className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
+								>
+									<X size={24} />
+								</button>
+							</div>
+
+							{/* Categories */}
+							<div className="mb-6">
+								<h4 className="font-semibold text-gray-900 mb-4 heading text-lg">
+									Categories
+								</h4>
+								<div className="space-y-2">
+									{categories.map((category) => (
+										<button
+											key={category.id}
+											onClick={() => {
+												setActiveCategory(category.id);
+												setIsFilterOpen(false);
+											}}
+											className={`flex items-center justify-between w-full text-left p-3 rounded-xl transition-all duration-200 ${
+												activeCategory === category.id
+													? "bg-blue-50 text-blue-700 shadow-md"
+													: "text-gray-700 hover:bg-gray-50 hover:shadow-sm"
+											}`}
+										>
+											<div className="flex items-center space-x-3">
+												<span className="text-xl">{category.icon}</span>
+												<span className="font-medium">{category.name}</span>
+											</div>
+											<span className="text-sm bg-gray-100 px-2 py-1 rounded-full">
+												{category.count}
+											</span>
+										</button>
+									))}
+								</div>
+							</div>
+
+							{/* Price Filter */}
+							<div className="mb-6">
+								<h4 className="font-semibold text-gray-900 mb-4 heading text-lg">
+									Price Range
+								</h4>
+								<div className="space-y-3">
+									{filters.price.map((price) => (
+										<label
+											key={price.value}
+											className="flex items-center group cursor-pointer"
+										>
+											<input
+												type="radio"
+												name="price"
+												value={price.value}
+												checked={selectedFilters.price === price.value}
+												onChange={(e) =>
+													handleFilterChange("price", e.target.value)
+												}
+												className="text-blue-600 focus:ring-blue-500"
+											/>
+											<span className="ml-3 text-gray-700 group-hover:text-gray-900 transition-colors">
+												{price.label}
+											</span>
+										</label>
+									))}
+								</div>
+							</div>
+
+							{/* Size Filter */}
+							<div className="mb-6">
+								<h4 className="font-semibold text-gray-900 mb-4 heading text-lg">
+									Size
+								</h4>
+								<div className="flex flex-wrap gap-2">
+									{filters.size.map((size) => (
+										<button
+											key={size}
+											onClick={() => handleFilterChange("size", size)}
+											className={`px-3 py-1.5 text-xs sm:text-sm font-medium border-2 rounded-lg transition-all duration-200 ${
+												selectedFilters.size === size
+													? "border-blue-600 bg-blue-600 text-white shadow-md"
+													: "border-gray-300 text-gray-700 hover:border-gray-400 hover:shadow-sm"
+											}`}
+										>
+											{size}
+										</button>
+									))}
+								</div>
+							</div>
+
+							{/* Color Filter */}
+							<div className="mb-6">
+								<h4 className="font-semibold text-gray-900 mb-4 heading text-lg">
+									Color
+								</h4>
+								<div className="flex flex-wrap gap-2">
+									{filters.color.map((color) => (
+										<button
+											key={color.name}
+											onClick={() => handleFilterChange("color", color.name)}
+											className={`w-7 h-7 sm:w-8 sm:h-8 rounded-full shadow-md transition-all duration-200 ${
+												color.value
+											} ${
+												selectedFilters.color === color.name
+													? "ring-2 ring-offset-2 ring-blue-600"
+													: ""
+											}`}
+											title={color.name}
+										/>
+									))}
+								</div>
+							</div>
+
+							<div className="flex gap-3 pt-4 border-t">
+								<button
+									onClick={clearFilters}
+									className="flex-1 border border-gray-300 text-gray-700 py-2 rounded-lg hover:border-gray-400 transition-colors font-medium"
+								>
+									Clear All
+								</button>
+								<button
+									onClick={() => setIsFilterOpen(false)}
+									className="flex-1 bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition-colors font-medium"
+								>
+									Apply
+								</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			)}
+
+			<div className="max-w-7xl mx-auto px-3 sm:px-4 lg:px-8 py-4 sm:py-6 lg:py-8">
+				{/* Header */}
+				<div className="text-center mb-6 sm:mb-8 lg:mb-12">
+					<h1 className="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-light text-gray-900 mb-3 sm:mb-4 heading">
 						Our Collection
 					</h1>
-					<p className="text-xl text-gray-600 max-w-2xl mx-auto">
+					<p className="text-sm sm:text-base lg:text-xl text-gray-600 max-w-2xl mx-auto px-2">
 						Discover premium fashion pieces carefully curated for your unique
 						style
 					</p>
 				</div>
 
-				<div className="flex flex-col lg:flex-row gap-8">
-					{/* Filters Sidebar */}
-					<div className="lg:w-80 flex-shrink-0">
+				{/* Mobile Filter Bar */}
+				<div className="lg:hidden bg-white rounded-xl shadow-lg p-4 mb-4">
+					<div className="flex items-center justify-between">
+						<button
+							onClick={() => setIsFilterOpen(true)}
+							className="flex items-center gap-2 bg-blue-600 text-white px-4 py-2 rounded-lg font-semibold hover:bg-blue-700 transition-colors"
+						>
+							<Filter size={18} />
+							Filters
+						</button>
+						<div className="flex items-center gap-2">
+							<button
+								onClick={() => setViewMode("grid")}
+								className={`p-2 rounded-lg ${
+									viewMode === "grid"
+										? "bg-blue-100 text-blue-600"
+										: "text-gray-600 hover:bg-gray-100"
+								}`}
+							>
+								<Grid size={20} />
+							</button>
+							<button
+								onClick={() => setViewMode("list")}
+								className={`p-2 rounded-lg ${
+									viewMode === "list"
+										? "bg-blue-100 text-blue-600"
+										: "text-gray-600 hover:bg-gray-100"
+								}`}
+							>
+								<List size={20} />
+							</button>
+						</div>
+					</div>
+				</div>
+
+				<div className="flex flex-col lg:flex-row gap-4 lg:gap-8">
+					{/* Desktop Filters Sidebar */}
+					<div className="hidden lg:block lg:w-80 flex-shrink-0">
 						<div className="bg-white rounded-2xl shadow-lg p-6 sticky top-8">
 							<div className="flex justify-between items-center mb-6">
 								<h3 className="text-xl font-semibold text-gray-900 heading">
@@ -508,9 +691,9 @@ const MenuPage = () => {
 					{/* Products Area */}
 					<div className="flex-1">
 						{/* Toolbar */}
-						<div className="bg-white rounded-2xl shadow-lg p-6 mb-8">
-							<div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-								<div className="text-gray-600">
+						<div className="bg-white rounded-xl sm:rounded-2xl shadow-lg p-4 sm:p-6 mb-4 sm:mb-6 lg:mb-8">
+							<div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 sm:gap-4">
+								<div className="text-gray-600 text-sm sm:text-base">
 									Showing{" "}
 									<span className="font-semibold text-gray-900">
 										{sortedProducts.length}
@@ -521,32 +704,46 @@ const MenuPage = () => {
 									</span>{" "}
 									products
 								</div>
-								<div className="flex items-center space-x-4">
-									<select
-										value={selectedFilters.sort}
-										onChange={(e) => handleFilterChange("sort", e.target.value)}
-										className="border-gray-300 rounded-lg text-sm focus:ring-blue-500 focus:border-blue-500 shadow-sm px-4 py-2"
-									>
-										<option value="featured">Featured</option>
-										<option value="newest">Newest</option>
-										<option value="price-low">Price: Low to High</option>
-										<option value="price-high">Price: High to Low</option>
-										<option value="rating">Highest Rated</option>
-									</select>
+								<div className="flex items-center space-x-3 sm:space-x-4 w-full sm:w-auto">
+									<div className="relative flex-1 sm:flex-none">
+										<select
+											value={selectedFilters.sort}
+											onChange={(e) =>
+												handleFilterChange("sort", e.target.value)
+											}
+											className="w-full border-gray-300 rounded-lg text-sm focus:ring-blue-500 focus:border-blue-500 shadow-sm px-3 py-2 pr-8 appearance-none bg-white"
+										>
+											<option value="featured">Featured</option>
+											<option value="newest">Newest</option>
+											<option value="price-low">Price: Low to High</option>
+											<option value="price-high">Price: High to Low</option>
+											<option value="rating">Highest Rated</option>
+										</select>
+										<ChevronDown
+											size={16}
+											className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 pointer-events-none"
+										/>
+									</div>
 								</div>
 							</div>
 						</div>
 
 						{/* Products Grid */}
 						{loading ? (
-							<div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
+							<div
+								className={`grid gap-4 sm:gap-6 lg:gap-8 ${
+									viewMode === "grid"
+										? "grid-cols-1 sm:grid-cols-2 xl:grid-cols-3"
+										: "grid-cols-1"
+								}`}
+							>
 								{[...Array(6)].map((_, index) => (
 									<div
 										key={index}
 										className="bg-white rounded-xl shadow-sm overflow-hidden animate-pulse"
 									>
-										<div className="bg-gray-200 h-80"></div>
-										<div className="p-6 space-y-3">
+										<div className="bg-gray-200 h-60 sm:h-72 md:h-80"></div>
+										<div className="p-4 sm:p-6 space-y-3">
 											<div className="h-4 bg-gray-200 rounded w-3/4"></div>
 											<div className="h-3 bg-gray-200 rounded w-1/2"></div>
 											<div className="h-6 bg-gray-200 rounded w-1/3"></div>
@@ -556,7 +753,13 @@ const MenuPage = () => {
 							</div>
 						) : (
 							<>
-								<div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
+								<div
+									className={`grid gap-4 sm:gap-6 lg:gap-8 ${
+										viewMode === "grid"
+											? "grid-cols-1 sm:grid-cols-2 xl:grid-cols-3"
+											: "grid-cols-1"
+									}`}
+								>
 									{sortedProducts.map((product) => (
 										<ProductCard key={product.id} product={product} />
 									))}
@@ -564,18 +767,18 @@ const MenuPage = () => {
 
 								{/* No Products Found */}
 								{sortedProducts.length === 0 && (
-									<div className="text-center py-16">
-										<div className="text-8xl mb-6">🛍️</div>
-										<h3 className="text-2xl font-semibold text-gray-900 mb-4 heading">
+									<div className="text-center py-12 sm:py-16">
+										<div className="text-6xl sm:text-8xl mb-4 sm:mb-6">🛍️</div>
+										<h3 className="text-xl sm:text-2xl font-semibold text-gray-900 mb-3 sm:mb-4 heading">
 											No products found
 										</h3>
-										<p className="text-gray-600 mb-6 max-w-md mx-auto">
+										<p className="text-gray-600 mb-4 sm:mb-6 max-w-md mx-auto text-sm sm:text-base px-2">
 											Try adjusting your filters or browse different categories
 											to find what you're looking for.
 										</p>
 										<button
 											onClick={clearFilters}
-											className="bg-blue-600 text-white px-8 py-3 rounded-lg hover:bg-blue-700 transition-colors font-semibold shadow-lg transform hover:scale-105 active:scale-95"
+											className="bg-blue-600 text-white px-6 sm:px-8 py-2 sm:py-3 rounded-lg hover:bg-blue-700 transition-colors font-semibold shadow-lg transform hover:scale-105 active:scale-95 text-sm sm:text-base"
 										>
 											Clear All Filters
 										</button>
@@ -584,8 +787,8 @@ const MenuPage = () => {
 
 								{/* Load More */}
 								{sortedProducts.length > 0 && (
-									<div className="flex justify-center mt-12">
-										<button className="bg-white border-2 border-gray-300 text-gray-700 px-8 py-4 rounded-lg hover:border-blue-600 hover:text-blue-600 transition-all duration-200 font-semibold shadow-sm hover:shadow-md transform hover:scale-105 active:scale-95">
+									<div className="flex justify-center mt-8 sm:mt-12">
+										<button className="bg-white border-2 border-gray-300 text-gray-700 px-6 sm:px-8 py-3 sm:py-4 rounded-lg hover:border-blue-600 hover:text-blue-600 transition-all duration-200 font-semibold shadow-sm hover:shadow-md transform hover:scale-105 active:scale-95 text-sm sm:text-base">
 											Load More Products
 										</button>
 									</div>
