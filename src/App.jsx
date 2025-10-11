@@ -3,13 +3,8 @@ import React from "react";
 import Navbar from "./components/Navbar";
 import Home from "./pages/Home";
 import Menu from "./pages/Menu";
-
-function Contact() {
-	return <h1>Contact Page</h1>;
-}
-function Reviews() {
-	return <h1>Reviews Page</h1>;
-}
+import Contact from "./pages/Contact";
+import Reviews from "./pages/Reviews";
 
 function App() {
 	return (
